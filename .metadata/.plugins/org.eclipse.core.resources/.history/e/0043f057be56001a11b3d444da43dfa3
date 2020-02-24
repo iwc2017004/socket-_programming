@@ -1,0 +1,31 @@
+package UdpPacket;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+
+public class MyClient {
+
+	public static void main(String[] args) throws Exception {
+		
+		DatagramSocket ds = new DatagramSocket();
+		System.out.println("result1");
+		
+		int i = 8;
+		byte[] b = (i+"").getBytes();
+		
+		InetAddress ia = InetAddress.getLocalHost();
+		DatagramPacket dp = new DatagramPacket(b,b.length,ia,9999);
+		ds.send(dp);
+		System.out.println("result2");
+		
+		byte[] b1 = new byte[1024];
+		DatagramPacket dp1 = new DatagramPacket(b,b.length);
+		ds.receive(dp1);
+		System.out.println("result1");
+		String str = new String(dp1.getData());
+		System.out.println("result is : " + str);
+		
+	}
+
+}

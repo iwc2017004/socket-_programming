@@ -1,0 +1,70 @@
+package myPacket;
+
+	// Java implementation for multithreaded chat client 
+	// Save file as Client.java 
+
+	import java.io.*; 
+	import java.net.*; 
+	import java.util.Scanner; 
+
+	public class Myclient {
+		final static int ServerPort = 9800; 
+
+		public static void main(String args[]) throws UnknownHostException, IOException 
+		{ 
+			Scanner scn = new Scanner(System.in); 
+			InetAddress ip = InetAddress.getByName("localhost"); 
+			
+			Socket s = new Socket(ip, ServerPort); 
+			  
+			DataInputStream dis = new DataInputStream(s.getInputStream()); 
+			DataOutputStream dos = new DataOutputStream(s.getOutputStream()); 
+			 
+			// sendMessage thread 
+			Thread sendMessage = new Thread(new Runnable() 
+			{ 
+				@Override
+				public void run() { 
+					while (true) {  
+						String msg = scn.nextLine(); 
+						try { 
+							// write on the output stream 
+							dos.writeUTF(msg); 
+							System.out.println("Client 4"); 
+						} catch (IOException e) { 
+							e.printStackTrace(); 
+						} 
+					} 
+				} 
+			}); 
+			
+			// readMessage thread 
+			Thread readMessage = new Thread(new Runnable() 
+			{ 
+				@Override
+				public void run() { 
+
+					while (true) { 
+						try { 
+							System.out.println("Client 5"); 
+							// read the message sent to this client 
+							String msg = dis.readUTF(); 
+							System.out.println("Client 5.1");
+							System.out.println(msg); 
+							System.out.println("Client 6"); 
+						} catch (IOException e) { 
+
+							e.printStackTrace(); 
+						} 
+					} 
+				} 
+			}); 
+			System.out.println("Client 7"); 
+			sendMessage.start(); 
+			readMessage.start(); 
+
+		} 
+	} 
+
+
+

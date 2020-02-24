@@ -1,0 +1,26 @@
+package servers;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.*;
+
+public class MyCLient {
+
+	public static void main(String[] args) {
+		try {
+			Socket s = new Socket("localhost", 999);
+			System.out.println("socket == "+ s);
+			
+			String str = "praveen";
+			
+			OutputStreamWriter os = new OutputStreamWriter(s.getOutputStream());
+			PrintWriter out = new PrintWriter(os);
+			os.write(str);
+			System.out.println("hello ");
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+	}
+
+}

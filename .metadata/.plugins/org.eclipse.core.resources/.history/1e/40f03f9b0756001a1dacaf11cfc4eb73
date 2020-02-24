@@ -1,0 +1,18 @@
+package servers;
+import java.net.*;
+
+public class MyCLient {
+
+	public static void main(String[] args) {
+		try {
+			Socket s = new Socket("localhost", 80);
+			System.out.println(s);
+			System.out.println(it's working);
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+
+	}
+
+}
